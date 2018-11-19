@@ -3028,13 +3028,13 @@ primitives.common.Polyline = function (newPaletteItem) {
 
 	function _joinVectors(prev, current, offset, polyline, isLoop) {
 	    var relationType = prev.relateTo(current),
-            col-md-offset-2 = isLoop ? 0 : offset,
+            col = isLoop ? 0 : offset,
             joinSegment,
             joinVector,
             newToPoint;
 	    if (relationType == 2/*primitives.common.VectorRelationType.Collinear*/) {
 	        /* Vectors are collinear vectors so we don't search for intersection */
-	        current.offset(col-md-offset-2);
+	        current.offset(col);
 	    } else {
 	        if (relationType == 3/*primitives.common.VectorRelationType.Opposite*/ && current.from.context.pointIndex == 0) {
 	            /* Vectors are opposite vectors which belong to 2 different segments
@@ -3043,7 +3043,7 @@ primitives.common.Polyline = function (newPaletteItem) {
 	            joinSegment = new primitives.common.LineSegment(current.from);
 	            polyline.addSegment(joinSegment);
 
-	            current.offset(col-md-offset-2);
+	            current.offset(col);
 
 	            newToPoint = current.from.clone();
 	            newToPoint.context = new Vertex(joinSegment, 0);
@@ -3062,7 +3062,7 @@ primitives.common.Polyline = function (newPaletteItem) {
 	                joinVector.to.context.pushToSegment(joinVector.to);
 	            }
 	        } else {
-	            current.offset(col-md-offset-2);
+	            current.offset(col);
 	            current.intersect(prev);
 	        }
 	    }
